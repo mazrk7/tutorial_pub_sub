@@ -1,0 +1,8 @@
+<launch>
+	<node pkg="turtlesim" name="turtlesim" type="turtlesim_node" required="true">
+  </node>
+
+  <node pkg="tutorial_pub_sub" name="tutorial_pub_sub" type="tutorial_pub_sub" required="true">
+  	<remap from="/pose" to="/turtle1/pose"/>
+  </node>
+</launch>
