@@ -3,9 +3,9 @@ project(tutorial_pub_sub)
 
 add_compile_options(-std=c++11 -O3)
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs geometry_msgs turtlesim)
 
-catkin_package(CATKIN_DEPENDS roscpp std_msgs)
+catkin_package(CATKIN_DEPENDS roscpp std_msgs geometry_msgs turtlesim)
 
 include_directories(${catkin_INCLUDE_DIRS})
 
