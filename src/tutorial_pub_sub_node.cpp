@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
 {
     ros::init(argc, argv, "tutorial_pub_sub");
     ros::NodeHandle nh;
+    // Private handle for the current node namespace
+    // Access parameters found in /<node_name>/<param_name> e.g. /tutorial_pub_sub/desired_x 
+    ros::NodeHandle nh_priv("~");
 
     // Create a Subscriber object
     // subscribe() returns a Subscriber for the topic 'pose' with a queue size of 10 messages
@@ -40,14 +43,14 @@ int main(int argc, char *argv[])
 
     ros::Rate loop_rate(10.0);
 
-    // Private handle for the current node namespace
-    // Access parameters found in /<node_name>/<param_name> e.g. /tutorial_pub_sub/axis_linear 
-    ros::NodeHandle nh_priv("~");
-    nh_priv.param<double>("desired_x", pose_desired.x, 2.0);
-    nh_priv.param<double>("desired_y", pose_desired.y, 2.0);
+
+    double desired_x=0.0, desired_y = 0.0, desired_th = 0.0;
+    nh_priv.param<double>("desired_x", desired_x, 2.0);
+    nh_priv.param<double>("desired_y", desired_y, 2.0);
+    nh_priv.param<double>("desired_th", desired_th, 0.0);
 
     // Desired pose for turtle
-    pose_desired.theta = 0.0;
+    pose_desired.x = desired_x, pose_desired.y = desired_y, pose_desired.theta = desired_th;
     cmd_vel.linear.x = 0.0, cmd_vel.angular.z = 0.0;
     
     int count = 1;
