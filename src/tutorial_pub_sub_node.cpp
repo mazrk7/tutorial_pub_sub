@@ -38,10 +38,16 @@ int main(int argc, char *argv[])
     ros::Subscriber pose_sub = nh.subscribe("pose", 10, &poseCallback);
     ros::Publisher cmd_vel_pub = nh.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 10);
 
-    ros::Rate loop_rate(100.0);
+    ros::Rate loop_rate(10.0);
+
+    // Private handle for the current node namespace
+    // Access parameters found in /<node_name>/<param_name> e.g. /tutorial_pub_sub/axis_linear 
+    ros::NodeHandle nh_priv("~");
+    nh_priv.param<double>("desired_x", pose_desired.x, 2.0);
+    nh_priv.param<double>("desired_y", pose_desired.y, 2.0);
 
     // Desired pose for turtle
-    pose_desired.x = 5.0, pose_desired.y = 5.0, pose_desired.theta = 0.0;
+    pose_desired.theta = 0.0;
     cmd_vel.linear.x = 0.0, cmd_vel.angular.z = 0.0;
     
     int count = 1;
